@@ -4,8 +4,8 @@
 
 
 /mob/living/simple_animal/bot/medbot
-	name = "\improper Medibot"
-	desc = "A little medical robot. He looks somewhat underwhelmed."
+	name = "\improper Medical Operator"
+	desc = "A Transtar Pyramid 490 Medical class Operator, You're in good hands."
 	icon = 'icons/mob/aibots.dmi'
 	icon_state = "medibot0"
 	density = FALSE
@@ -66,7 +66,7 @@
 
 /mob/living/simple_animal/bot/medbot/derelict
 	name = "\improper Old Medibot"
-	desc = "Looks like it hasn't been modified since the late 2080s."
+	desc = "Looks like it hasn't been modified since the late 2020s."
 	skin = "bezerk"
 	heal_threshold = 0
 	declare_crit = 0
@@ -261,10 +261,10 @@
 	if(assess_patient(H))
 		last_found = world.time
 		if((last_newpatient_speak + 300) < world.time) //Don't spam these messages!
-			var/list/messagevoice = list("Hey, [H.name]! Hold on, I'm coming." = 'sound/voice/medbot/coming.ogg',"Wait [H.name]! I want to help!" = 'sound/voice/medbot/help.ogg',"[H.name], you appear to be injured!" = 'sound/voice/medbot/injured.ogg')
+			var/list/messagevoice = list("Please! Hold still, This will only take a moment." = 'sound/voice/medbot/coming.ogg',"Are you here for an appointment?" = 'sound/voice/medbot/help.ogg',"[H.name], you appear to be injured!" = 'sound/voice/medbot/injured.ogg')
 			var/message = pick(messagevoice)
 			speak(message)
-			playsound(loc, messagevoice[message], 50, 0)
+			playsound(src, messagevoice[message], 50, 0)
 			last_newpatient_speak = world.time
 		return H
 	else
@@ -289,10 +289,10 @@
 
 	if(QDELETED(patient))
 		if(!shut_up && prob(1))
-			var/list/messagevoice = list("Radar, put a mask on!" = 'sound/voice/medbot/radar.ogg',"There's always a catch, and I'm the best there is." = 'sound/voice/medbot/catch.ogg',"I knew it, I should've been a plastic surgeon." = 'sound/voice/medbot/surgeon.ogg',"What kind of medbay is this? Everyone's dropping like flies." = 'sound/voice/medbot/flies.ogg',"Delicious!" = 'sound/voice/medbot/delicious.ogg')
+			var/list/messagevoice = list("Are you here for an appointment?" = 'sound/voice/medbot/radar.ogg',"I hope you’re practicing good nutrition and daily exercise!" = 'sound/voice/medbot/catch.ogg',"Don’t forget to complete a patient questionnaire, Your feedback will be invaluable." = 'sound/voice/medbot/surgeon.ogg',"Hello! I'm a Pyramid 490 Medical class Operator." = 'sound/voice/medbot/flies.ogg',"All of my anatomy and procedure files are up to date!" = 'sound/voice/medbot/delicious.ogg')
 			var/message = pick(messagevoice)
 			speak(message)
-			playsound(loc, messagevoice[message], 50, 0)
+			playsound(src, messagevoice[message], 50)
 		var/scan_range = (stationary_mode ? 1 : DEFAULT_SCAN_RANGE) //If in stationary mode, scan range is limited to adjacent patients.
 		patient = scan(/mob/living/carbon/human, oldpatient, scan_range)
 		oldpatient = patient
@@ -476,10 +476,10 @@
 	if(!reagent_id) //If they don't need any of that they're probably cured!
 		if(C.maxHealth - C.health < heal_threshold)
 			to_chat(src, "<span class='notice'>[C] is healthy! Your programming prevents you from injecting anyone without at least [heal_threshold] damage of any one type ([heal_threshold + 15] for oxygen damage.)</span>")
-		var/list/messagevoice = list("All patched up!" = 'sound/voice/medbot/patchedup.ogg',"An apple a day keeps me away." = 'sound/voice/medbot/apple.ogg',"Feel better soon!" = 'sound/voice/medbot/feelbetter.ogg')
+		var/list/messagevoice = list("Please fill out a patient experience questionnaire, So I can serve you better next time!" = 'sound/voice/medbot/patchedup.ogg',"I know what you're thinking, Physician heal thy self." = 'sound/voice/medbot/apple.ogg',"Good as new!" = 'sound/voice/medbot/feelbetter.ogg')
 		var/message = pick(messagevoice)
 		speak(message)
-		playsound(loc, messagevoice[message], 50, 0)
+		playsound(src, messagevoice[message], 50)
 		bot_reset()
 		return
 	else

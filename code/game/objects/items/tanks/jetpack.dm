@@ -1,6 +1,6 @@
 /obj/item/tank/jetpack
-	name = "jetpack (empty)"
-	desc = "A tank of compressed gas for use as propulsion in zero-gravity areas. Use with caution."
+	name = "Artax Propulsion System (empty)"
+	desc = "A Transtar brand Artax Propulsion System. Giving you an edge in space."
 	icon_state = "jetpack"
 	item_state = "jetpack"
 	lefthand_file = 'icons/mob/inhands/equipment/jetpacks_lefthand.dmi'
